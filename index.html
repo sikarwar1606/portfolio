@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Anupam Singh Sikarwar — Full Stack Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+  /* ── Tokens ─────────────────────────────────────── */
+  :root {
+    --sand:    #F7F3EE;
+    --linen:   #EDE7DC;
+    --stone:   #C8BAA8;
+    --umber:   #7A6652;
+    --bark:    #3D2B1F;
+    --ink:     #1A1108;
+    --teal:    #2E7B72;
+    --teal-lt: #3A9E93;
+    --teal-bg: #EAF4F3;
+    --gold:    #B8882A;
+    --white:   #FFFFFF;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--sand);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── Nav ────────────────────────────────────────── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(247, 243, 238, 0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--linen);
+    padding: 0 32px;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 60px;
+  }
+  .nav-logo {
+    font-family: 'Lora', serif;
+    font-weight: 700; font-size: 17px;
+    color: var(--bark);
+    letter-spacing: -0.02em;
+  }
+  .nav-logo span { color: var(--teal); }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a {
+    text-decoration: none; color: var(--umber);
+    font-size: 13px; font-weight: 500;
+    letter-spacing: 0.04em; text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--teal); }
+
+  /* ── Hero ───────────────────────────────────────── */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 100px 32px 60px;
+    max-width: 1100px; margin: 0 auto;
+    gap: 60px;
+  }
+  .hero-text { flex: 1; }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--teal-bg);
+    border: 1px solid #C0DDD9;
+    border-radius: 100px;
+    padding: 6px 16px;
+    font-size: 12px; font-weight: 600;
+    color: var(--teal); letter-spacing: 0.06em; text-transform: uppercase;
+    margin-bottom: 28px;
+  }
+  .hero-eyebrow::before {
+    content: ''; width: 7px; height: 7px;
+    border-radius: 50%; background: var(--teal);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+  .hero h1 {
+    font-family: 'Lora', serif;
+    font-size: clamp(38px, 6vw, 64px);
+    font-weight: 700; line-height: 1.1;
+    color: var(--bark);
+    letter-spacing: -0.03em;
+    margin-bottom: 12px;
+  }
+  .hero h1 em {
+    font-style: italic; color: var(--teal);
+  }
+  .hero-sub {
+    font-size: 17px; color: var(--umber);
+    max-width: 480px; line-height: 1.7;
+    margin-bottom: 40px; font-weight: 400;
+  }
+  .hero-cta { display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--teal); color: var(--white);
+    padding: 13px 28px; border-radius: 8px;
+    text-decoration: none; font-weight: 600; font-size: 14px;
+    transition: background 0.2s, transform 0.15s;
+    border: none; cursor: pointer;
+  }
+  .btn-primary:hover { background: var(--teal-lt); transform: translateY(-1px); }
+  .btn-ghost {
+    background: transparent; color: var(--bark);
+    padding: 13px 28px; border-radius: 8px;
+    text-decoration: none; font-weight: 600; font-size: 14px;
+    border: 1.5px solid var(--stone);
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .btn-ghost:hover { border-color: var(--teal); color: var(--teal); }
+
+  /* Signature element: floating initials card */
+  .hero-card {
+    width: 280px; flex-shrink: 0;
+    background: var(--white);
+    border: 1px solid var(--linen);
+    border-radius: 20px;
+    padding: 36px 28px;
+    box-shadow: 0 8px 40px rgba(61, 43, 31, 0.1);
+    text-align: center;
+    position: relative;
+  }
+  .hero-card::before {
+    content: '';
+    position: absolute; inset: -1px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, var(--teal) 0%, transparent 50%);
+    z-index: -1; opacity: 0.15;
+  }
+  .avatar {
+    width: 88px; height: 88px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--teal) 0%, var(--teal-lt) 100%);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 16px;
+    font-family: 'Lora', serif;
+    font-size: 28px; font-weight: 700; color: var(--white);
+    letter-spacing: -0.02em;
+  }
+  .hero-card-name {
+    font-family: 'Lora', serif;
+    font-size: 15px; font-weight: 600; color: var(--bark);
+    margin-bottom: 4px;
+  }
+  .hero-card-title {
+    font-size: 12px; color: var(--umber);
+    text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 20px;
+  }
+  .hero-stats {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 12px; margin-top: 4px;
+  }
+  .hero-stat {
+    background: var(--sand);
+    border-radius: 10px; padding: 12px 8px;
+  }
+  .hero-stat-val {
+    font-family: 'Lora', serif;
+    font-size: 22px; font-weight: 700; color: var(--teal);
+  }
+  .hero-stat-lbl {
+    font-size: 10px; color: var(--umber);
+    text-transform: uppercase; letter-spacing: 0.05em; margin-top: 2px;
+  }
+  .status-dot {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: #EDFAF5; border: 1px solid #B2E8D6;
+    border-radius: 100px; padding: 4px 10px;
+    font-size: 11px; color: #1D8A5E; font-weight: 600;
+    margin-top: 16px;
+  }
+  .status-dot::before {
+    content: ''; width: 6px; height: 6px;
+    background: #1D8A5E; border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  /* ── Section Shell ──────────────────────────────── */
+  section { padding: 90px 32px; }
+  .section-inner { max-width: 1100px; margin: 0 auto; }
+  .section-label {
+    display: flex; align-items: center; gap: 12px;
+    font-size: 11px; font-weight: 700; color: var(--teal);
+    text-transform: uppercase; letter-spacing: 0.1em;
+    margin-bottom: 16px;
+  }
+  .section-label::after {
+    content: ''; flex: 1; height: 1px; background: var(--stone); max-width: 60px;
+  }
+  .section-title {
+    font-family: 'Lora', serif;
+    font-size: clamp(28px, 4vw, 40px);
+    font-weight: 700; color: var(--bark);
+    letter-spacing: -0.02em; margin-bottom: 12px;
+  }
+  .section-desc {
+    font-size: 16px; color: var(--umber); max-width: 520px; line-height: 1.7;
+    margin-bottom: 48px;
+  }
+
+  /* ── About ──────────────────────────────────────── */
+  #about { background: var(--white); }
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start;
+  }
+  .about-text p {
+    color: var(--umber); line-height: 1.8; margin-bottom: 18px; font-size: 15px;
+  }
+  .about-values { display: flex; flex-direction: column; gap: 16px; }
+  .value-item {
+    display: flex; gap: 16px; align-items: flex-start;
+    background: var(--sand); border-radius: 12px; padding: 18px;
+    border-left: 3px solid var(--teal);
+  }
+  .value-icon { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
+  .value-title { font-weight: 700; color: var(--bark); font-size: 14px; margin-bottom: 4px; }
+  .value-desc { font-size: 13px; color: var(--umber); line-height: 1.5; }
+
+  /* ── Skills ─────────────────────────────────────── */
+  #skills { background: var(--sand); }
+  .skills-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px;
+  }
+  .skill-card {
+    background: var(--white); border: 1px solid var(--linen);
+    border-radius: 14px; padding: 24px;
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .skill-card:hover { box-shadow: 0 6px 24px rgba(61,43,31,0.08); transform: translateY(-3px); }
+  .skill-cat {
+    font-size: 11px; font-weight: 700; color: var(--teal);
+    text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 14px;
+  }
+  .skill-list { display: flex; flex-wrap: wrap; gap: 8px; }
+  .skill-tag {
+    background: var(--sand); color: var(--bark);
+    padding: 5px 12px; border-radius: 100px;
+    font-size: 12px; font-weight: 500;
+    border: 1px solid var(--linen);
+  }
+
+  /* ── Projects ───────────────────────────────────── */
+  #projects { background: var(--white); }
+  .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; }
+  .project-card {
+    border: 1px solid var(--linen); border-radius: 16px; overflow: hidden;
+    background: var(--white); transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .project-card:hover { box-shadow: 0 10px 40px rgba(61,43,31,0.1); transform: translateY(-4px); }
+  .project-top {
+    background: linear-gradient(135deg, var(--teal) 0%, #1A5C55 100%);
+    padding: 32px 28px;
+    position: relative; overflow: hidden;
+  }
+  .project-top.alt {
+    background: linear-gradient(135deg, var(--bark) 0%, #2A1A10 100%);
+  }
+  .project-top.gold {
+    background: linear-gradient(135deg, var(--gold) 0%, #8A6010 100%);
+  }
+  .project-top-icon {
+    font-size: 36px; margin-bottom: 12px; display: block;
+  }
+  .project-top-title {
+    font-family: 'Lora', serif;
+    font-size: 20px; font-weight: 700; color: var(--white);
+    letter-spacing: -0.01em;
+  }
+  .project-top-sub {
+    font-size: 12px; color: rgba(255,255,255,0.65); margin-top: 4px;
+  }
+  .project-body { padding: 24px 28px; }
+  .project-desc { font-size: 14px; color: var(--umber); line-height: 1.7; margin-bottom: 18px; }
+  .project-tags { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 20px; }
+  .project-tag {
+    background: var(--teal-bg); color: var(--teal);
+    font-size: 11px; font-weight: 600;
+    padding: 4px 10px; border-radius: 100px;
+    border: 1px solid #C0DDD9;
+  }
+  .project-links { display: flex; gap: 12px; }
+  .project-link {
+    font-size: 13px; font-weight: 600; color: var(--teal);
+    text-decoration: none; display: flex; align-items: center; gap: 5px;
+    transition: gap 0.2s;
+  }
+  .project-link:hover { gap: 8px; }
+
+  /* ── Experience ─────────────────────────────────── */
+  #experience { background: var(--sand); }
+  .timeline { position: relative; }
+  .timeline::before {
+    content: ''; position: absolute; left: 18px; top: 0; bottom: 0;
+    width: 2px; background: var(--linen);
+  }
+  .timeline-item {
+    display: flex; gap: 32px; margin-bottom: 40px; position: relative;
+  }
+  .timeline-dot {
+    width: 38px; height: 38px; border-radius: 50%;
+    background: var(--white); border: 2px solid var(--teal);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; margin-top: 4px; z-index: 1;
+    font-size: 16px;
+  }
+  .timeline-content {
+    background: var(--white); border: 1px solid var(--linen);
+    border-radius: 14px; padding: 24px 28px; flex: 1;
+  }
+  .timeline-meta {
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+    margin-bottom: 8px;
+  }
+  .timeline-role { font-weight: 700; color: var(--bark); font-size: 15px; }
+  .timeline-period {
+    font-size: 12px; color: var(--teal); font-weight: 600;
+    background: var(--teal-bg); padding: 3px 10px;
+    border-radius: 100px; border: 1px solid #C0DDD9;
+  }
+  .timeline-company { font-size: 13px; color: var(--umber); margin-bottom: 12px; }
+  .timeline-points { padding-left: 16px; }
+  .timeline-points li {
+    font-size: 13px; color: var(--umber); margin-bottom: 6px; line-height: 1.6;
+  }
+
+  /* ── Contact ────────────────────────────────────── */
+  #contact { background: var(--bark); }
+  #contact .section-label { color: var(--stone); }
+  #contact .section-label::after { background: var(--umber); }
+  #contact .section-title { color: var(--white); }
+  #contact .section-desc { color: var(--stone); }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+  .contact-form { display: flex; flex-direction: column; gap: 16px; }
+  .form-group { display: flex; flex-direction: column; gap: 6px; }
+  .form-label { font-size: 12px; color: var(--stone); font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; }
+  .form-input {
+    background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 8px; padding: 11px 16px;
+    color: var(--white); font-size: 14px; font-family: inherit;
+    outline: none; transition: border-color 0.2s;
+  }
+  .form-input::placeholder { color: var(--umber); }
+  .form-input:focus { border-color: var(--teal-lt); }
+  textarea.form-input { resize: vertical; min-height: 110px; }
+  .contact-info { display: flex; flex-direction: column; gap: 20px; padding-top: 8px; }
+  .contact-item {
+    display: flex; gap: 16px; align-items: flex-start;
+  }
+  .contact-icon {
+    width: 42px; height: 42px; border-radius: 10px;
+    background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; flex-shrink: 0;
+  }
+  .contact-item-label { font-size: 11px; color: var(--stone); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 3px; }
+  .contact-item-val { font-size: 14px; color: var(--white); font-weight: 500; }
+
+  /* ── Footer ─────────────────────────────────────── */
+  footer {
+    background: var(--ink); padding: 28px 32px;
+    text-align: center; font-size: 13px; color: var(--umber);
+  }
+  footer span { color: var(--teal); }
+
+  /* ── Responsive ─────────────────────────────────── */
+  @media (max-width: 768px) {
+    .hero { flex-direction: column; align-items: flex-start; padding-top: 90px; }
+    .hero-card { width: 100%; }
+    .about-grid, .contact-grid { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+    section { padding: 60px 20px; }
+    nav { padding: 0 20px; }
+    .hero { padding: 90px 20px 40px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Anupam<span>.</span></div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="btn-primary" style="padding:9px 20px;font-size:13px;">Hire Me</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-text">
+    <div class="hero-eyebrow">Available for opportunities</div>
+    <h1>Building things<br/>that <em>work.</em></h1>
+    <p class="hero-sub">
+      I'm Anupam Singh Sikarwar — a Full Stack Engineer who turns complex problems into clean, reliable software. From quality systems to training platforms, I build end-to-end.
+    </p>
+    <div class="hero-cta">
+      <a href="#projects" class="btn-primary">See My Work</a>
+      <a href="#contact" class="btn-ghost">Get in Touch</a>
+    </div>
+  </div>
+
+  <div class="hero-card">
+    <div class="avatar">AS</div>
+    <div class="hero-card-name">Anupam Singh Sikarwar</div>
+    <div class="hero-card-title">Full Stack Engineer</div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-val">2+</div>
+        <div class="hero-stat-lbl">Years Exp.</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-val">5+</div>
+        <div class="hero-stat-lbl">Projects</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-val">10+</div>
+        <div class="hero-stat-lbl">Technologies</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-val">∞</div>
+        <div class="hero-stat-lbl">Curiosity</div>
+      </div>
+    </div>
+    <div class="status-dot">Open to work</div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <div class="section-label">About me</div>
+    <h2 class="section-title">Who I am</h2>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>
+          I'm a Full Stack Engineer with a passion for building software that solves real operational problems. I enjoy working across the entire stack — from designing clean APIs to crafting intuitive user interfaces.
+        </p>
+        <p>
+          My recent work has focused on enterprise-grade systems: quality management tools that streamline audits and compliance, and training platforms that help organizations track employee growth efficiently.
+        </p>
+        <p>
+          I care about writing code that is maintainable, scalable, and genuinely useful — not just functional. When I'm not coding, I'm thinking about how systems can be made simpler.
+        </p>
+        <a href="#contact" class="btn-primary" style="margin-top:8px;display:inline-block;">Let's talk →</a>
+      </div>
+      <div class="about-values">
+        <div class="value-item">
+          <div class="value-icon">🏗️</div>
+          <div>
+            <div class="value-title">End-to-End Thinking</div>
+            <div class="value-desc">I design systems holistically — from database schema to the pixel on screen — so nothing falls through the cracks.</div>
+          </div>
+        </div>
+        <div class="value-item">
+          <div class="value-icon">🎯</div>
+          <div>
+            <div class="value-title">Problem First</div>
+            <div class="value-desc">I start every project by understanding the problem deeply before writing a single line of code.</div>
+          </div>
+        </div>
+        <div class="value-item">
+          <div class="value-icon">📈</div>
+          <div>
+            <div class="value-title">Built to Scale</div>
+            <div class="value-desc">I build with growth in mind — clean architecture, proper separation of concerns, and future-proof patterns.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-inner">
+    <div class="section-label">What I work with</div>
+    <h2 class="section-title">Skills & Tools</h2>
+    <p class="section-desc">A cross-functional toolkit covering frontend, backend, databases, and deployment.</p>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="skill-cat">Frontend</div>
+        <div class="skill-list">
+          <span class="skill-tag">React.js</span>
+          <span class="skill-tag">JavaScript</span>
+          <span class="skill-tag">HTML5</span>
+          <span class="skill-tag">CSS3</span>
+          <span class="skill-tag">Tailwind CSS</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-cat">Backend</div>
+        <div class="skill-list">
+          <span class="skill-tag">Node.js</span>
+          <span class="skill-tag">Express.js</span>
+          <span class="skill-tag">REST APIs</span>
+          <span class="skill-tag">JWT Auth</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-cat">Database</div>
+        <div class="skill-list">
+          <span class="skill-tag">MongoDB</span>
+          <span class="skill-tag">Mongoose</span>
+          <span class="skill-tag">PostgreSQL</span>
+          <span class="skill-tag">MySQL</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-cat">Tools & DevOps</div>
+        <div class="skill-list">
+          <span class="skill-tag">Git & GitHub</span>
+          <span class="skill-tag">Vercel</span>
+          <span class="skill-tag">Railway</span>
+          <span class="skill-tag">Postman</span>
+          <span class="skill-tag">VS Code</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-inner">
+    <div class="section-label">What I've built</div>
+    <h2 class="section-title">Projects</h2>
+    <p class="section-desc">Real-world applications built end-to-end, from architecture to deployment.</p>
+    <div class="projects-grid">
+
+      <div class="project-card">
+        <div class="project-top">
+          <span class="project-top-icon">✅</span>
+          <div class="project-top-title">Quality Management System</div>
+          <div class="project-top-sub">Enterprise · Full Stack</div>
+        </div>
+        <div class="project-body">
+          <p class="project-desc">A comprehensive QMS that digitizes audit workflows, tracks non-conformances, manages corrective actions, and generates compliance reports — replacing spreadsheet chaos with a structured system.</p>
+          <div class="project-tags">
+            <span class="project-tag">React</span>
+            <span class="project-tag">Node.js</span>
+            <span class="project-tag">MongoDB</span>
+            <span class="project-tag">REST API</span>
+          </div>
+          <div class="project-links">
+            <a href="#" class="project-link">View Project →</a>
+            <a href="#" class="project-link">GitHub →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-top alt">
+          <span class="project-top-icon">🎓</span>
+          <div class="project-top-title">TrainTrack</div>
+          <div class="project-top-sub">HR Tool · Full Stack</div>
+        </div>
+        <div class="project-body">
+          <p class="project-desc">An employee training management platform to schedule sessions, log training records, and run evaluations with scores and ratings — giving HR real visibility into workforce development.</p>
+          <div class="project-tags">
+            <span class="project-tag">React</span>
+            <span class="project-tag">Express</span>
+            <span class="project-tag">MongoDB</span>
+            <span class="project-tag">JWT</span>
+          </div>
+          <div class="project-links">
+            <a href="#" class="project-link">View Project →</a>
+            <a href="#" class="project-link">GitHub →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-top gold">
+          <span class="project-top-icon">🚀</span>
+          <div class="project-top-title">More Coming Soon</div>
+          <div class="project-top-sub">Always building</div>
+        </div>
+        <div class="project-body">
+          <p class="project-desc">Currently exploring new project ideas. Check back soon or reach out — I'm always open to interesting problems worth solving together.</p>
+          <div class="project-tags">
+            <span class="project-tag">In Progress</span>
+          </div>
+          <div class="project-links">
+            <a href="#contact" class="project-link">Collaborate →</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-inner">
+    <div class="section-label">Where I've been</div>
+    <h2 class="section-title">Experience</h2>
+    <p class="section-desc">My professional journey as an engineer.</p>
+    <div class="timeline">
+
+      <div class="timeline-item">
+        <div class="timeline-dot">💼</div>
+        <div class="timeline-content">
+          <div class="timeline-meta">
+            <div class="timeline-role">Full Stack Developer</div>
+            <div class="timeline-period">2024 – Present</div>
+          </div>
+          <div class="timeline-company">Your Company / Freelance</div>
+          <ul class="timeline-points">
+            <li>Built and deployed the Quality Management System used to manage audits and compliance workflows</li>
+            <li>Developed TrainTrack, an end-to-end employee training platform with scheduling, records, and evaluations</li>
+            <li>Designed REST APIs in Node.js and Express with MongoDB for data persistence</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot">🎓</div>
+        <div class="timeline-content">
+          <div class="timeline-meta">
+            <div class="timeline-role">Computer Science / Engineering</div>
+            <div class="timeline-period">2022 – 2024</div>
+          </div>
+          <div class="timeline-company">Your College / University</div>
+          <ul class="timeline-points">
+            <li>Studied core CS fundamentals: data structures, algorithms, databases, and operating systems</li>
+            <li>Built academic projects using JavaScript, React, and backend technologies</li>
+            <li>Developed interest in enterprise software and operational systems</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="section-label">Get in touch</div>
+    <h2 class="section-title">Let's work together</h2>
+    <p class="section-desc">Have a project in mind or want to discuss an opportunity? I'd love to hear from you.</p>
+    <div class="contact-grid">
+      <form class="contact-form" onsubmit="handleSubmit(event)">
+        <div class="form-group">
+          <label class="form-label">Your Name</label>
+          <input class="form-input" type="text" placeholder="e.g. Riya Sharma" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input class="form-input" type="email" placeholder="riya@example.com" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Message</label>
+          <textarea class="form-input" placeholder="Tell me about your project or opportunity…"></textarea>
+        </div>
+        <button type="submit" class="btn-primary" style="align-self:flex-start;">Send Message →</button>
+        <div id="form-msg" style="font-size:13px;color:#3A9E93;display:none;margin-top:4px;">✓ Message sent! I'll get back to you soon.</div>
+      </form>
+      <div class="contact-info">
+        <div class="contact-item">
+          <div class="contact-icon">📧</div>
+          <div>
+            <div class="contact-item-label">Email</div>
+            <div class="contact-item-val">sikarwar1606@gmail.com</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">💼</div>
+          <div>
+            <div class="contact-item-label">LinkedIn</div>
+            <div class="contact-item-val"> linkkkkkkk</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">🐙</div>
+          <div>
+            <div class="contact-item-label">GitHub</div>
+            <div class="contact-item-val">github.com/anupam-sikarwar</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <div>
+            <div class="contact-item-label">Location</div>
+            <div class="contact-item-val">India · Open to Remote</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  Designed & built by <span>Anupam Singh Sikarwar</span> · 2026
+</footer>
+
+<script>
+  function handleSubmit(e) {
+    e.preventDefault();
+    document.getElementById('form-msg').style.display = 'block';
+    e.target.reset();
+    setTimeout(() => document.getElementById('form-msg').style.display = 'none', 4000);
+  }
+
+  // Scroll fade-in
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.skill-card, .project-card, .timeline-item, .value-item').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
